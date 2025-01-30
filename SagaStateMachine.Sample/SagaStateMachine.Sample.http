@@ -1,0 +1,6 @@
+@SagaStateMachine.Sample_HostAddress = http://localhost:5047
+
+GET {{SagaStateMachine.Sample_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

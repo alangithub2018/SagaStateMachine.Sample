@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  sagastatemachine.sample:
+    image: ${DOCKER_REGISTRY-}sagastatemachinesample
+    container_name: sagastatemachine.sample
+    build:
+      context: .
+      dockerfile: SagaStateMachine.Sample/Dockerfile
+  sagastatemachine.sample.db:
+    image: postgres
+    container_name: sagastatemachine.sample.db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: sagastatemachine.sample
+    volumes:
+      - ./sagastatemachine.sample.db/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  sagastatemachine.sample.rabbitmq:
+    image: rabbitmq:3-management
+    container_name: sagastatemachine.sample.rabbitmq
+    hostname: sagastatemachine.sample.rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - ./sagastatemachine.sample.rabbitmq/data:/var/lib/rabbitmq
+      - ./sagastatemachine.sample.rabbitmq/log:/var/log/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
