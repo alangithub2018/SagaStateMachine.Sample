@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SagaStateMachine.Sample.Database;
 using SagaStateMachine.Sample.Emails;
 using SagaStateMachine.Sample.Messages;
+using SagaStateMachine.Sample.Sagas;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,15 @@ builder.Services.AddMassTransit(busConfigurator =>
 {
     busConfigurator.SetKebabCaseEndpointNameFormatter();
     busConfigurator.AddConsumers(typeof(Program).Assembly);
+
+    // Add the state machine by specifying the saga instance and the saga data
+    busConfigurator.AddSagaStateMachine<NewsletterOnboardingSaga, NewsletterOnboardingSagaData>()
+    .EntityFrameworkRepository(r =>
+    {
+        r.ExistingDbContext<AppDbContext>();
+        r.UsePostgres();
+    });
+
     busConfigurator.UsingRabbitMq((context, configurator) =>
     {
         configurator.Host(new Uri(builder.Configuration.GetConnectionString("RabbitMq")!), hst =>
@@ -30,6 +40,8 @@ builder.Services.AddMassTransit(busConfigurator =>
             hst.Username("guest");
             hst.Password("guest");
         });
+        
+        configurator.UseInMemoryOutbox(context);
         configurator.ConfigureEndpoints(context);
     });
 });
