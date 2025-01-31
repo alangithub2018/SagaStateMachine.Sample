@@ -1,6 +1,10 @@
 # 🚀 Saga Pattern with MassTransit, RabbitMQ, and PostgreSQL
 
-![MassTransit](https://raw.githubusercontent.com/MassTransit/MassTransit/master/doc/images/logo.png) ![RabbitMQ](https://upload.wikimedia.org/wikipedia/commons/7/71/RabbitMQ_logo.svg) ![PostgreSQL](https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/1138403/144698630-b6e6064f-6318-47c7-9d6d-5f6fc336e77d.png" alt="MassTransit" width="200"/>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/RabbitMQ_logo.svg" alt="RabbitMQ" width="200"/>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg" alt="PostgreSQL" width="200"/>
+</p>
 
 This repository demonstrates the implementation of the **Saga State Machine** using **MassTransit**, **RabbitMQ**, and **PostgreSQL**. The project illustrates how to manage distributed state changes reliably with **Saga Pattern** in an event-driven architecture.
 
